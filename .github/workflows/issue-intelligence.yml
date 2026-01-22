@@ -12,11 +12,6 @@ jobs:
   process-issue:
     runs-on: ubuntu-latest
     steps:
-      - name: Download Simili config
-        run: |
-          mkdir -p .github
-          curl -sL https://raw.githubusercontent.com/Kavirubc/gh-simili/examples/multi-repo-same-org/nexusflow-simili.yaml -o .github/simili.yaml
-
       - name: Run Simili Issue Intelligence
         uses: Kavirubc/gh-simili@main
         with:

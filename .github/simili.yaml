@@ -1,0 +1,30 @@
+qdrant:
+  url: "${QDRANT_URL}"
+  api_key: "${QDRANT_API_KEY}"
+  use_grpc: true
+
+embedding:
+  primary:
+    provider: "gemini"
+    model: "gemini-embedding-001"
+    api_key: "${GEMINI_API_KEY}"
+    dimensions: 768
+
+defaults:
+  similarity_threshold: 0.65
+  max_similar_to_show: 5
+  include_closed_issues: true
+  closed_issue_weight: 0.9
+  cross_repo_search: true
+  comment_cooldown_hours: 1
+
+repositories:
+  - org: "similigh"
+    repo: "nexusflow-sdk"
+    enabled: true
+    similarity_threshold: 0.65
+
+rate_limits:
+  github_requests_per_second: 10
+  embedding_requests_per_second: 5
+  qdrant_requests_per_second: 50
