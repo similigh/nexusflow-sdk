@@ -1,0 +1,28 @@
+name: Issue Intelligence
+
+on:
+  issues:
+    types: [opened, edited, closed, reopened, deleted]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  process-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Simili config
+        run: |
+          mkdir -p .github
+          curl -sL https://raw.githubusercontent.com/Kavirubc/gh-simili/examples/multi-repo-same-org/nexusflow-simili.yaml -o .github/simili.yaml
+
+      - name: Run Simili Issue Intelligence
+        uses: Kavirubc/gh-simili@main
+        with:
+          config_path: '.github/simili.yaml'
+          github_token: ${{ secrets.SIMILI_TOKEN }}
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          QDRANT_URL: ${{ secrets.QDRANT_URL }}
+          QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
