@@ -19,7 +19,7 @@ jobs:
         uses: Kavirubc/gh-simili@main
         with:
           config_path: '.github/simili.yaml'
-          github_token: ${{ secrets.SIMILI_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           QDRANT_URL: ${{ secrets.QDRANT_URL }}
