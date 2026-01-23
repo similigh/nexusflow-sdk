@@ -24,7 +24,7 @@ jobs:
           owner: similigh
 
       - name: Run Simili Issue Triage
-        uses: Kavirubc/gh-simili@v2.2.0
+        uses: Kavirubc/gh-simili@v2.2.1
         with:
           command: triage
           config_path: '.github/simili.yaml'
