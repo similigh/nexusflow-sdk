@@ -68,3 +68,49 @@ rate_limits:
   github_requests_per_second: 10
   embedding_requests_per_second: 5
   qdrant_requests_per_second: 50
+
+repositories:
+  - org: "similigh"
+    repo: "nexusflow-sdk"
+    enabled: true
+    similarity_threshold: 0.65
+    transfer_rules:
+      # Documentation issues should go to docs repo
+      - match:
+          title_contains: ["documentation", "docs", "tutorial", "guide", "example"]
+        target: "similigh/nexusflow-docs"
+        priority: 1
+      - match:
+          body_contains: ["documentation", "missing docs", "add example", "API reference", "docs.nexusflow.io"]
+        target: "similigh/nexusflow-docs"
+        priority: 2
+      - match:
+          title_contains: ["search", "docs.nexusflow.io"]
+        target: "similigh/nexusflow-docs"
+        priority: 1
+      - match:
+          body_contains: ["docs.nexusflow.io", "documentation site", "doc site"]
+        target: "similigh/nexusflow-docs"
+        priority: 2
+
+      # Core server issues go to core
+      - match:
+          title_contains: ["server bug", "gateway", "memory leak", "TLS", "WebSocket", "plugin"]
+        target: "similigh/nexusflow-core"
+        priority: 3
+      - match:
+          body_contains: ["server crash", "gateway error", "runtime panic", "server-side", "backend bug"]
+        target: "similigh/nexusflow-core"
+        priority: 4
+
+      # CLI issues go to CLI
+      - match:
+          title_contains: ["CLI", "command line", "nexus deploy", "nexus login"]
+        target: "similigh/nexusflow-cli"
+        priority: 5
+
+      # VS Code issues go to vscode
+      - match:
+          title_contains: ["VS Code", "VSCode", "extension", "IntelliSense"]
+        target: "similigh/nexusflow-vscode"
+        priority: 6
