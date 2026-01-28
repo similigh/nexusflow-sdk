@@ -101,3 +101,15 @@ rate_limits:
   github_requests_per_second: 10
   embedding_requests_per_second: 5
   qdrant_requests_per_second: 50
+
+# Pipeline Configuration (Execution Order)
+pipeline:
+  steps:
+    - "gatekeeper"
+    - "vectordb_prep"
+    - "similarity_search"
+    - "transfer_check"
+    - "triage"
+    - "response_builder"
+    - "action_executor"
+    - "indexer"
