@@ -14,9 +14,9 @@ concurrency:
   group: issue-intelligence-${{ github.event.issue.number }}
 
 jobs:
-  # Use full-process for new issues (unified triage + transfer + indexing)
+  # Use full-process for new issues and comment-triggered actions (re-check reactions/undo)
   unified-process:
-    if: github.event_name == 'issues' && github.event.action == 'opened'
+    if: github.event_name == 'issues' && github.event.action == 'opened' || github.event_name == 'issue_comment'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
