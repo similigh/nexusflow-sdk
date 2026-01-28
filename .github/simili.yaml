@@ -17,6 +17,8 @@ triage:
     provider: "gemini"
     model: "gemini-2.5-flash-lite"
     api_key: "${GEMINI_API_KEY}"
+  router:
+    enabled: true
   classifier:
     enabled: true
     min_confidence: 0.7
@@ -61,41 +63,25 @@ defaults:
 
 repositories:
   - org: "similigh"
-    repo: "nexusflow-sdk"
+    repo: "nexusflow-core"
+    description: "The core engine of NexusFlow. Handles server-side logic, performance, security, and internal system bugs."
     enabled: true
-    similarity_threshold: 0.65
-    transfer_rules:
-      # Documentation issues should go to docs repo
-      - match:
-          title_contains: ["documentation", "docs", "tutorial", "guide", "example", "search", "docs.nexusflow.io"]
-        target: "similigh/nexusflow-docs"
-        priority: 1
-      - match:
-          body_contains: ["documentation", "missing docs", "add example", "API reference", "docs.nexusflow.io", "documentation site", "doc site"]
-        target: "similigh/nexusflow-docs"
-        priority: 2
-
-      # Core server issues go to core
-      - match:
-          title_contains: ["server bug", "gateway", "memory leak", "TLS", "WebSocket", "plugin"]
-        target: "similigh/nexusflow-core"
-        priority: 3
-      - match:
-          body_contains: ["server crash", "gateway error", "runtime panic", "server-side", "backend bug"]
-        target: "similigh/nexusflow-core"
-        priority: 4
-
-      # CLI issues go to CLI
-      - match:
-          title_contains: ["CLI", "command line", "nexus deploy", "nexus login"]
-        target: "similigh/nexusflow-cli"
-        priority: 5
-
-      # VS Code issues go to vscode
-      - match:
-          title_contains: ["VS Code", "VSCode", "extension", "IntelliSense"]
-        target: "similigh/nexusflow-vscode"
-        priority: 6
+  - org: "similigh"
+    repo: "nexusflow-docs"
+    description: "Public documentation for NexusFlow. Handles usage guides, API references, and documentation-related requests."
+    enabled: true
+  - org: "similigh"
+    repo: "nexusflow-cli"
+    description: "The command-line interface for NexusFlow. Handles 'nexus' command issues, deployment commands, and terminal output."
+    enabled: true
+  - org: "similigh"
+    repo: "nexusflow-vscode"
+    description: "The VS Code extension for NexusFlow. Handles IntelliSense, snippet support, and editor-specific bugs."
+    enabled: true
+  - org: "similigh"
+    repo: "nexusflow-sdk"
+    description: "The client SDKs for Go, Python, and TypeScript. Handles client-side libraries and integration logic."
+    enabled: true
 
 rate_limits:
   github_requests_per_second: 10
